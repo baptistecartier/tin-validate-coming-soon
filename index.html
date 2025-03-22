@@ -1,4 +1,223 @@
-<!-- Before line 220 remains unchanged -->
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coming Soon - TIN Validate</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    
+    <!-- Include Tailwind CSS from CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Alpine.js for interactive elements -->
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <!-- AOS (Animate On Scroll) library for animations -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    
+    <style>
+        :root {
+            --cerulean: #04b4ec;
+            --cerulean-light: rgba(4, 180, 236, 0.1);
+            --green-vogue: #042c64;
+            --azure-radiance: #0494f0;
+            --cobalt: #044cac;
+            --teal-blue: #045064;
+        }
+        
+        /* Background pattern */
+        .bg-pattern {
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23042c64' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        
+        /* Common button styles */
+        .btn {
+            padding: 0.625rem 1.25rem;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1.25;
+        }
+
+        /* Primary Button */
+        .btn-primary {
+            background-color: var(--cerulean);
+            color: white;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+        .btn-primary:hover {
+            background-color: var(--azure-radiance);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Outline Button */
+        .btn-outline {
+            border: 1.5px solid var(--cerulean);
+            color: var(--cerulean);
+            background-color: transparent;
+        }
+        .btn-outline:hover {
+            background-color: var(--cerulean-light);
+            border-color: var(--azure-radiance);
+            color: var(--azure-radiance);
+        }
+        
+        /* Animation keyframes */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translate3d(0, 30px, 0);
+            }
+            to {
+                opacity: 1;
+                transform: translate3d(0, 0, 0);
+            }
+        }
+        
+        .animate-float {
+            animation: float 5s ease-in-out infinite;
+        }
+        
+        .animate-pulse-slow {
+            animation: pulse 3s ease-in-out infinite;
+        }
+        
+        .animate-fade-in-up {
+            animation: fadeInUp 1s ease-out forwards;
+        }
+        
+        .animate-delay-1 {
+            animation-delay: 0.3s;
+        }
+        
+        .animate-delay-2 {
+            animation-delay: 0.6s;
+        }
+        
+        .animate-delay-3 {
+            animation-delay: 0.9s;
+        }
+        
+        /* Timer styles */
+        .timer-container {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+        
+        .timer-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 80px;
+        }
+        
+        .timer-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--green-vogue);
+            background: white;
+            border-radius: 0.5rem;
+            padding: 0.5rem 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            min-width: 80px;
+            text-align: center;
+        }
+        
+        .timer-label {
+            margin-top: 0.5rem;
+            font-size: 0.875rem;
+            color: var(--teal-blue);
+            font-weight: 500;
+        }
+        
+        /* Email form styles */
+        .email-form {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .email-input {
+            border: 1.5px solid #e2e8f0;
+            border-radius: 0.375rem;
+            padding: 0.75rem 1rem;
+            font-size: 1rem;
+            width: 100%;
+            transition: all 200ms ease;
+            background-color: white;
+        }
+        
+        .email-input:focus {
+            outline: none;
+            border-color: var(--cerulean);
+            box-shadow: 0 0 0 3px var(--cerulean-light);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-full flex flex-col">
+    <div class="relative min-h-screen flex flex-col justify-center overflow-hidden bg-gradient-to-br from-[#042c64]/5 to-[#04b4ec]/10">
+        <!-- Background pattern -->
+        <div class="absolute inset-0 bg-pattern opacity-10"></div>
+        
+        <!-- Main Content Container -->
+        <div class="container mx-auto px-4 relative z-10 py-12 md:py-20">
+            <!-- Logo and Header -->
+            <div class="text-center mb-8 animate-float">
+                <div class="inline-flex items-center justify-center mb-6">
+                    <h1 class="text-3xl font-bold text-[#042c64] tracking-tight">TIN 
+                        <img src="/favicon.svg" alt="Logo" class="inline-block h-8 w-8 mx-1 -mt-1 bg-[#042c64] p-1 rounded"> 
+                        Validate
+                    </h1>
+                </div>
+            </div>
+            
+            <!-- Coming Soon Content -->
+            <div class="max-w-4xl mx-auto text-center space-y-8">
+                <h2 class="text-4xl sm:text-5xl md:text-6xl font-bold text-[#042c64] animate-fade-in-up leading-tight">
+                    We're <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#042c64] to-[#04b4ec]">Coming Soon</span>
+                </h2>
+                
+                <p class="text-lg sm:text-xl text-[#045064] animate-fade-in-up animate-delay-1 max-w-3xl mx-auto">
+                    We're working hard to bring you the most extensive TIN validation coverage available.
+                    Stay tuned for our launch!
+                </p>
+                
+                <!-- Countdown Timer -->
+                <div class="animate-fade-in-up animate-delay-2" x-data="timer()" x-init="startTimer()">
+                    <div class="timer-container">
+                        <div class="timer-item">
+                            <div class="timer-number" x-text="days">00</div>
+                            <div class="timer-label">Days</div>
+                        </div>
+                        <div class="timer-item">
+                            <div class="timer-number" x-text="hours">00</div>
+                            <div class="timer-label">Hours</div>
+                        </div>
+                        <div class="timer-item">
+                            <div class="timer-number" x-text="minutes">00</div>
+                            <div class="timer-label">Minutes</div>
+                        </div>
+                        <div class="timer-item">
+                            <div class="timer-number" x-text="seconds">00</div>
+                            <div class="timer-label">Seconds</div>
+                        </div>
+                    </div>
                 </div>
                 
             </div>
